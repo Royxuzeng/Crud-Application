@@ -92,5 +92,31 @@ namespace ContactManagement.UnitTests
             Assert.IsNotNull(model);
             Assert.AreEqual(contact.Id, model.Id);
         }
+        
+        [Test]
+        public void Search_WhenCalledWithValidName_ReturnsMatchingContacts()
+        {
+            // Arrange
+            _context.Contacts.AddRange(
+                new Contact { Name = "John Doe", Number = "12345" },
+                new Contact { Name = "Jane Smith", Number = "54321" },
+                new Contact { Name = "John Smith", Number = "98765" }
+            );
+            _context.SaveChanges();
+
+            var searchTerm = "John";
+
+            // Act
+            var result = _controller.Search(searchTerm);
+
+            // Assert
+            Assert.IsInstanceOf<ViewResult>(result);
+
+            var viewResult = result as ViewResult;
+            var model = viewResult.Model as IEnumerable<Contact>;
+            Assert.IsNotNull(model);
+            Assert.AreEqual(2, model.Count());
+            Assert.IsTrue(model.All(c => c.Name.Contains(searchTerm)));
+        }
     }
 }

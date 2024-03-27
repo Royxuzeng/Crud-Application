@@ -93,5 +93,21 @@ namespace ContactManagement.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+        public IActionResult Search(string searchTerm)
+        {
+            IEnumerable<Contact> filteredContacts;
+
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                filteredContacts = _db.Contacts;
+            }
+            else
+            {
+                filteredContacts = _db.Contacts.Where(c => c.Name.Contains(searchTerm));
+            }
+
+            return View("Index", filteredContacts);
+        }
     }
 }
