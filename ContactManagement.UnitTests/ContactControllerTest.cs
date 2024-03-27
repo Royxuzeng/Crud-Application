@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using NUnit.Framework;
-using ContactManagement.Controllers;
-using ContactManagement.Models;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
+using ContactManagement.Controllers;
 using ContactManagement.Data;
+using ContactManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NUnit.Framework;
 
-namespace ContactManagement.Tests
+namespace ContactManagement.UnitTests
 {
     [TestFixture]
     public class ContactControllerTests
