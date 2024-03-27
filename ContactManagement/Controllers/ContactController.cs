@@ -16,8 +16,8 @@ namespace ContactManagement.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = _db.Contacts;
-            return View(objCategoryList);
+            IEnumerable<Contact> objContactList = _db.Contacts;
+            return View(objContactList);
         }
         
         public IActionResult Create()
@@ -26,13 +26,12 @@ namespace ContactManagement.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create(Category obj)
+        public IActionResult Create(Contact obj)
         {
             if (ModelState.IsValid)
             {
                 _db.Contacts.Add(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Category created successfully.";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -54,13 +53,12 @@ namespace ContactManagement.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(Category obj)
+        public IActionResult Edit(Contact obj)
         {
             if (ModelState.IsValid)
             {
                 _db.Contacts.Update(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Category updated successfully.";
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -93,7 +91,6 @@ namespace ContactManagement.Controllers
 
             _db.Contacts.Remove(obj);
             _db.SaveChanges();
-            TempData["success"] = "Category deleted successfully.";
             return RedirectToAction("Index");
         }
     }
