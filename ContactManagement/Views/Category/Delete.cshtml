@@ -1,0 +1,25 @@
+@model Category
+
+<h1>Delete Category</h1>
+
+<form asp-action="Delete">
+    <input asp-for="Id" type="hidden" />
+    <div class="form-group">
+        <label class="control-label">Name:</label>
+        <input type="text" value="@Model.Name" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label class="control-label">Display Order:</label>
+        <input type="text" value="@Model.DisplayOrder" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Delete" class="btn btn-danger btn-fixed-width"/>
+        <a asp-action="Index" class="btn btn-secondary btn-fixed-width">Cancel</a>
+    </div>
+</form>
+
+<style>
+    .btn-fixed-width {
+        width: 200px;
+    }
+</style>

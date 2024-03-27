@@ -1,0 +1,27 @@
+@model Category
+
+<h1>Create Category</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DisplayOrder" class="control-label"></label>
+        <input asp-for="DisplayOrder" class="form-control" />
+        <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary btn-fixed-width" />
+    </div>
+</form>
+
+<a asp-action="Index" class="btn btn-primary btn-fixed-width">Back to List</a>
+
+<style>
+.btn-fixed-width {
+    width: 200px;
+}
+</style>
