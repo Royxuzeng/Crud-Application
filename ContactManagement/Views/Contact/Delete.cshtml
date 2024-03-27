@@ -1,6 +1,6 @@
 @model Category
 
-<h1>Delete Category</h1>
+<h1>Delete Contact</h1>
 
 <form asp-action="Delete">
     <input asp-for="Id" type="hidden" />
@@ -10,7 +10,7 @@
     </div>
     <div class="form-group">
         <label class="control-label">Display Order:</label>
-        <input type="text" value="@Model.DisplayOrder" class="form-control" readonly />
+        <input type="text" value="@Model.Number" class="form-control" readonly />
     </div>
     <div class="form-group">
         <input type="submit" value="Delete" class="btn btn-danger btn-fixed-width"/>
