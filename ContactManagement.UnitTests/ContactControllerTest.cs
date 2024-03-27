@@ -77,20 +77,23 @@ namespace ContactManagement.UnitTests
         }
         
         [Test]
-        public void Edit_WhenCalledWithValidId_ReturnsEditViewWithContact()
+        public void Edit_ExistingContact_ShouldUpdateContact()
         {
-            var contact = new Contact { Id = 1, Name = "John Doe", Number = "12345" };
-            _context.Contacts.Add(contact);
+            var originalContact = new Contact { Name = "John Doe", Number = "12345" };
+            _context.Contacts.Add(originalContact);
             _context.SaveChanges();
             
-            var result = _controller.Edit(contact.Id);
-            
-            Assert.IsInstanceOf<ViewResult>(result);
+            _context.Entry(originalContact).State = EntityState.Detached;
 
-            var viewResult = result as ViewResult;
-            var model = viewResult.Model as Contact;
-            Assert.IsNotNull(model);
-            Assert.AreEqual(contact.Id, model.Id);
+            var updatedContact = new Contact { Id = originalContact.Id, Name = "John Updated", Number = "67890" };
+            
+            _controller.Edit(updatedContact);
+            _context.SaveChanges();
+            var result = _context.Contacts.FirstOrDefault(c => c.Id == originalContact.Id);
+            
+            Assert.IsNotNull(result);
+            Assert.AreEqual("John Updated", result.Name);
+            Assert.AreEqual("67890", result.Number);
         }
     }
 }
