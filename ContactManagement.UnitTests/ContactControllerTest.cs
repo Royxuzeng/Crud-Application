@@ -3,8 +3,11 @@ using System.Linq;
 using ContactManagement.Controllers;
 using ContactManagement.Data;
 using ContactManagement.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace ContactManagement.UnitTests
@@ -26,6 +29,9 @@ namespace ContactManagement.UnitTests
             _context.Database.EnsureDeleted();
             _context.Database.EnsureCreated();
             _controller = new ContactController(_context);
+            
+            var tempData = new TempDataDictionary(new DefaultHttpContext(), Substitute.For<ITempDataProvider>());
+            _controller.TempData = tempData;
         }
 
         [TearDown]
@@ -66,7 +72,7 @@ namespace ContactManagement.UnitTests
             _context.Contacts.Add(new Contact { Name = "Jane Doe", Number = "54321" });
             _context.SaveChanges();
             
-            var result = _controller.Index();
+            var result = _controller.Index(null);
             
             Assert.IsInstanceOf<ViewResult>(result);
 

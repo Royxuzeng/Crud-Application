@@ -7,12 +7,13 @@
 <div class="container p-3">
     <div class="row pt-4">
         <div class="col-6">
-            <h2 class="text-primary">Contact List</h2>
+            <h1 class="text-primary">Contact List</h1>
         </div>
         <div class="col-6 text-end">
             <a asp-controller="Contact" asp-action="Create" class="btn btn-primary">
                 <i class="bi bi-plus-circle"></i> &nbsp; Create New Contact
             </a>
+            <br/>
         </div>
     </div>
     <br />
@@ -22,8 +23,8 @@
         <tr>
             <th>
                 Name
-                <a asp-controller="Contact" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">
-                                <i class="bi @(ViewData["NameSortParm"].ToString() == "name_desc" ? "bi-sort-alpha-down" : "bi-sort-alpha-up")"></i>
+                <a asp-controller="Contact" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" >
+                    <i class="bi @((ViewData["NameSortParm"]?.ToString() ?? "name_desc") == "name_desc" ? "bi-sort-alpha-down" : "bi-sort-alpha-up")"></i>
                 </a>
             </th>
             <th>
@@ -32,7 +33,7 @@
             <th>
                 Created Date Time
                 <a asp-controller="Contact" asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">
-                                <i class="bi @(ViewData["DateSortParm"].ToString() == "date_desc" ? "bi-sort-alpha-down" : "bi-sort-alpha-up")"></i>
+                    <i class="bi @((ViewData["DateSortParm"]?.ToString() ?? "date_desc") == "date_desc" ? "bi-sort-alpha-down" : "bi-sort-alpha-up")"></i>
                 </a>
             </th>
             <th></th>
