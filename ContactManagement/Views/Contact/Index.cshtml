@@ -4,37 +4,51 @@
     ViewData["Title"] = "Contact List";
 }
 
-<div class="header-container">
-    <h1>Contact List</h1>
-    <br/>
-    <a asp-controller="Contact" asp-action="Create" class="btn btn-primary">
-        Create New Contact
-    </a>
-</div>
-<br/>
-<table class="table">
-    <thead>
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Contact List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Contact" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create New Contact
+            </a>
+        </div>
+    </div>
+    <br />
+
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Created Date Time</th>
-            <th>Actions</th>
+            <th>
+                Name
+            </th>
+            <th>
+                Number
+            </th>
+            <th></th>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var contact in Model)
+        </thead>
+        <tbody>
+        @foreach(var obj in Model)
         {
             <tr>
-                <td>@contact.Id</td>
-                <td>@contact.Name</td>
-                <td>@contact.Number</td>
-                <td>@contact.CreatedDateTime</td>
+                <td width="50%">
+                    @obj.Name
+                </td>
+                <td width="30%">
+                    @obj.Number
+                </td>
                 <td>
-                    <a asp-controller="Contact" asp-action="Edit" asp-route-id="@contact.Id" class="btn btn-info">Edit</a>
-                    <a asp-controller="Contact" asp-action="Delete" asp-route-id="@contact.Id" class="btn btn-danger">Delete</a>
+                    <div class="w-100" role="group">
+                        <a asp-controller="Contact" asp-action="Edit" asp-route-id="@obj.Id"
+                           class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-controller="Contact" asp-action="Delete" asp-route-id="@obj.Id"
+                           class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
+                    </div>
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
