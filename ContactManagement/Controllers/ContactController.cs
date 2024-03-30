@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ContactManagement.Data;
@@ -14,10 +15,30 @@ namespace ContactManagement.Controllers
         {
             _db = db;
         }
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
-            IEnumerable<Contact> objContactList = _db.Contacts;
-            return View(objContactList);
+            ViewData["NameSortParm"] = sortOrder == "name_desc" ? "name_asc" : "name_desc";
+            ViewData["DateSortParm"] = sortOrder == "date_desc" ? "date_asc" : "date_desc";
+
+            IEnumerable<Contact> contacts = _db.Contacts;
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    contacts = contacts.OrderByDescending(c => c.Name);
+                    break;
+                case "name_asc":
+                    contacts = contacts.OrderBy(c => c.Name);
+                    break;
+                case "date_desc":
+                    contacts = contacts.OrderByDescending(c => c.CreatedDateTime);
+                    break;
+                case "date_asc":
+                    contacts = contacts.OrderBy(c => c.CreatedDateTime);
+                    break;
+            }
+
+            return View(contacts);
         }
         
         public IActionResult Create()
