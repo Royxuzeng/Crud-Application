@@ -94,7 +94,6 @@ namespace ContactManagement.UnitTests
             var updatedContact = new Contact { Id = originalContact.Id, Name = "John Updated", Number = "67890" };
             
             _controller.Edit(updatedContact);
-            _context.SaveChanges();
             var result = _context.Contacts.FirstOrDefault(c => c.Id == originalContact.Id);
             
             Assert.IsNotNull(result);
